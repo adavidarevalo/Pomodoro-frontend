@@ -2,7 +2,8 @@ import {
   CHANGE_PLAY_PAUSE,
   CHANGE_TIME,
   CHANGES_TIMES_L_S_P,
-  SAFE_CHANGE_TIME
+  SAFE_CHANGE_TIME,
+  ADD_INFO_TIME
 } from "../../type"
 
 export default (state, action) => {
@@ -33,6 +34,14 @@ export default (state, action) => {
         ...state,
         timeStop: action.payload
       }
+    case ADD_INFO_TIME:
+    console.log("awswer ",action.payload)
+    return{
+      ...state,
+      pomodoro: action.payload.pomodoro,
+      longBreak: action.payload.longBreak,
+      shortBreak: action.payload.shortBreak
+    }
     default:
       return state;
   }

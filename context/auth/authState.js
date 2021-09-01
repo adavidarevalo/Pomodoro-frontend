@@ -103,6 +103,7 @@ const AuthState = ({children}) => {
       user: state.user,
       name: state.name,
       autentification: state.autentification,
+      timer: state.timer,
       userRegister,
       LogIn
     }}

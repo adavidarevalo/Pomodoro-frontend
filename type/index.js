@@ -1,7 +1,9 @@
+//Time
 export const TIME_SELECT = "TIME_SELECT"
 export const CHANGE_PLAY_PAUSE = "CHANGE_PLAY_PAUSE"
 export const CHANGE_TIME = "CHANGE_TIME"
 export const CHANGES_TIMES_L_S_P = "CHANGES_TIMES_L_S_P"
+export const ADD_INFO_TIME = "ADD_INFO_TIME"
 
 export const SAFE_CHANGE_TIME = "SAFE_CHANGE_TIME"
 

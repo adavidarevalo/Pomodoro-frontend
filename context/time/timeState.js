@@ -1,11 +1,16 @@
-import React, {useReducer} from "react"
+import React, {useReducer, useEffect, useContext} from "react"
 import timeReducer from "./timeReducer"
 import TimeContext from "./timeContext"
+import AuthContext from "../auth/authContext"
+import UserAxios from "../../config/axios"
+
+
 import {
   CHANGE_PLAY_PAUSE,
   CHANGE_TIME,
   CHANGES_TIMES_L_S_P,
-  SAFE_CHANGE_TIME
+  SAFE_CHANGE_TIME,
+  ADD_INFO_TIME
 } from "../../type"
 
 const TimeState = ({children}) => {
@@ -18,11 +23,32 @@ const TimeState = ({children}) => {
     shortBreak: 5,
     backgroundAll: "#fa6e6c",
     Text: "Roboto"
+    
   }
+  const {timer} = useContext(AuthContext)
+
+  const addContainerTimer = async() => {
+    try{
+      const awswer = await UserAxios.put(`/api/timerContainer/${timer}`)
+      dispatch({
+        type: ADD_INFO_TIME,
+        payload: awswer.data.timer
+      })
+    } catch(error){
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    if(timer){
+      addContainerTimer()
+    }
+  }, [])
+
+
   const [state, dispatch] = useReducer(timeReducer, initialState)
 
   const changePlayPause = payload =>{
-    console.log("pause xx ", payload)
     dispatch({
       type:CHANGE_PLAY_PAUSE,
       payload
