@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react"
+import React, {useState, useEffect, useContext, useRef} from "react"
 import {Circle, Container, ButtonSvg} from "../styles/components/TimerCount"
 import TimeContext from "../context/time/timeContext"
 import { AiFillCaretRight } from "react-icons/ai";
@@ -7,6 +7,26 @@ import { BsArrowCounterclockwise } from "react-icons/bs";
 
 
 const TimerCount = () => {
+  //Sound
+  const [isPlaying, setIsPlaying] = useState(false)
+  const audioRef = useRef(null)
+  function toggleIsPlaying(payload) {
+    setIsPlaying(payload)
+    setTimeout(() => {
+      setIsPlaying(false)
+    }, 5000);
+  }
+  useEffect(()=> {
+    if (!audioRef.current) {
+        return;
+    }
+  
+    if (isPlaying) {
+        audioRef.current.play()
+    } else {
+        audioRef.current.pause()
+    }
+  }, [isPlaying])
   const timeContext = useContext(TimeContext)
   const {
     time, 
@@ -29,6 +49,7 @@ const TimerCount = () => {
     //keyframe
   if(!playPause){
   if(minute === 0 && second === 0){
+    toggleIsPlaying(true)
     changePlayPause(false)
     changeTime(time)
     setSecond(0)
@@ -71,12 +92,23 @@ const TimerCount = () => {
           <p>{minute} : {second}</p>
           <ButtonSvg>
             <button
-            onClick={PausePlayContainer}
+            onClick={()=>{
+              PausePlayContainer()
+              toggleIsPlaying(false)
+            }}
             >{playPause ? <AiFillCaretRight/> :   <AiOutlinePause/>}
             </button>
             <button
-            onClick={()=>handleRepeat(time)}
+            onClick={()=>{
+              handleRepeat(time)
+              toggleIsPlaying(false)
+            }}
             ><BsArrowCounterclockwise/></button>
+            <audio 
+              src='/alarm.mp3' 
+              autoPlay={true} 
+              ref={audioRef}
+            />
           </ButtonSvg>
       </Circle>
     </Container>

@@ -1,6 +1,11 @@
 import {useContext} from "react"
 import TimeContext from "../../context/time/timeContext"
 import styled from "@emotion/styled"
+import { keyframes } from "@emotion/react"
+const fadeIn = keyframes`
+0% {opacity: .5;}
+100% {opacity: 1;}
+`
 
 const BackgroundColor = () => {
   const timeContext = useContext(TimeContext)
@@ -19,6 +24,9 @@ nav{
   justify-content: space-between;
   border-radius: 30px;
   .NavColor{
+    animation-name: ${fadeIn};
+    animation-duration: 1s;
+    animation-fill-mode: both;
     background: ${BackgroundColor};
   }
   button{

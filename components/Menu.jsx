@@ -8,7 +8,7 @@ import AuthContext from "../context/auth/authContext"
 
 const Menu = () => {
   const {changeAccount} = useContext(AccountContext)
-  const {name} = useContext(AuthContext)
+  const {name, logOut} = useContext(AuthContext)
 
   const handleLogin = () => {
     changeAccount(false)
@@ -16,12 +16,23 @@ const Menu = () => {
   const handleCreateAccount = () => {
     changeAccount(true)
   }
-  console.log("name ", name)
+  
   return(
     <ContainerMenu>
-      {name && <p>Hi {name}</p>}
-      <AiOutlineUser fixed={false}/>
-      <div>
+      {name && <p>Hi <span>{name}</span></p>}
+      <section>
+        <AiOutlineUser fixed={false}/>
+      </section>
+      {name? (
+        <div>
+          <Link href="/">
+            <button onClick={logOut}>
+              LogOut
+            </button>
+          </Link>
+        </div>
+      ):(
+        <div>
         <Link 
         href="/account"
         >
@@ -40,8 +51,9 @@ const Menu = () => {
           >
             Login
           </button>
-          </Link>
+        </Link>
       </div>
+      )}
     </ContainerMenu>
   )
 }

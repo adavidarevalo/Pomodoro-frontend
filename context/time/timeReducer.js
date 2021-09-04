@@ -3,7 +3,8 @@ import {
   CHANGE_TIME,
   CHANGES_TIMES_L_S_P,
   SAFE_CHANGE_TIME,
-  ADD_INFO_TIME
+  ADD_INFO_TIME,
+  RETURN_INFORMATION
 } from "../../type"
 
 export default (state, action) => {
@@ -40,8 +41,17 @@ export default (state, action) => {
       ...state,
       pomodoro: action.payload.pomodoro,
       longBreak: action.payload.longBreak,
-      shortBreak: action.payload.shortBreak
+      shortBreak: action.payload.shortBreak,
+      backgroundAll: action.payload.backgroundAll,
+      Text: action.payload.Text
     }
+    case RETURN_INFORMATION:
+      return{
+        ...state,
+        pomodoro: 25,
+        longBreak: 15,
+        shortBreak: 5
+      }
     default:
       return state;
   }

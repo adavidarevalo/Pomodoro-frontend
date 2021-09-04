@@ -10,7 +10,8 @@ import {
   CHANGE_TIME,
   CHANGES_TIMES_L_S_P,
   SAFE_CHANGE_TIME,
-  ADD_INFO_TIME
+  ADD_INFO_TIME,
+  RETURN_INFORMATION
 } from "../../type"
 
 const TimeState = ({children}) => {
@@ -25,11 +26,10 @@ const TimeState = ({children}) => {
     Text: "Roboto"
     
   }
-  const {timer} = useContext(AuthContext)
-
-  const addContainerTimer = async() => {
+  const {timer, name} = useContext(AuthContext)
+  const addContainerTimer = async(data ) => {
     try{
-      const awswer = await UserAxios.put(`/api/timerContainer/${timer}`)
+      const awswer = await UserAxios.put(`/api/timerContainer/${timer}`, data && data)
       dispatch({
         type: ADD_INFO_TIME,
         payload: awswer.data.timer
@@ -43,7 +43,15 @@ const TimeState = ({children}) => {
     if(timer){
       addContainerTimer()
     }
-  }, [])
+  }, [timer, name])  
+  
+  useEffect(() => {
+    if(timer === null && name === null){
+      dispatch({
+        type: RETURN_INFORMATION
+      })
+    }
+  }, [timer, name])
 
 
   const [state, dispatch] = useReducer(timeReducer, initialState)
@@ -70,6 +78,11 @@ const TimeState = ({children}) => {
   }
 
   const changeTimesShortLongP = payload => {
+    try{
+      addContainerTimer(payload)
+    } catch(error){
+      console.log(error)
+    }
     dispatch({
       type: CHANGES_TIMES_L_S_P,
       payload

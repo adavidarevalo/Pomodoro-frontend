@@ -3,6 +3,18 @@ import {css} from "@emotion/react"
 
 export const ContainerMenu = styled.div`
 position: relative;
+display: flex;
+align-items: center;
+section{
+  padding: 0px 10px 10px;
+}
+p{
+  color: #bcc2e0;
+  font-size: 1rem;
+  span{
+    font-weight: 700;
+  }
+}
 div{
   background: #151932;
   color: white;

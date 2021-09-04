@@ -4,6 +4,7 @@ export const CHANGE_PLAY_PAUSE = "CHANGE_PLAY_PAUSE"
 export const CHANGE_TIME = "CHANGE_TIME"
 export const CHANGES_TIMES_L_S_P = "CHANGES_TIMES_L_S_P"
 export const ADD_INFO_TIME = "ADD_INFO_TIME"
+export const RETURN_INFORMATION = "RETURN_INFORMATION"
 
 export const SAFE_CHANGE_TIME = "SAFE_CHANGE_TIME"
 
@@ -17,3 +18,4 @@ export const GET_USER  = "GET_USER"
 export const LOGIN_ERROR  = "LOGIN_ERROR"
 export const GET_TOKEN_START = "GET_TOKEN_START"
 export const LOGIN_SUCCESSFUL = "LOGIN_SUCCESSFUL"
+export const LOG_OUT = "LOG_OUT"

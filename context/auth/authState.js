@@ -3,13 +3,16 @@ import AuthContext from "./authContext"
 import authReducer from "./authReducer"
 import UserAxios from "../../config/axios"
 import tokenAuth from "../../config/tokenAuth"
+
+
 import {
   AUTHENTICATION_SUCCESS,
   REGISTER_ERROR,
   GET_USER,
   LOGIN_ERROR,
   GET_TOKEN_START,
-  LOGIN_SUCCESSFUL
+  LOGIN_SUCCESSFUL,
+  LOG_OUT
 } from "../../type"
 
 
@@ -41,9 +44,9 @@ const AuthState = ({children}) => {
       })
   }
    const LogIn = async data =>{
-     console.log("login ", data)
     try {
       const awswer = await UserAxios.post("/api/auth", data)
+      console.log("awswer ", awswer)
       dispatch({
         type: LOGIN_SUCCESSFUL,
         payload: awswer.data
@@ -61,9 +64,8 @@ const AuthState = ({children}) => {
     try {
       const awswerTimer = await UserAxios.post("/api/timerContainer") 
       payload.idBase = awswerTimer.data._id
-      console.log("payload ",payload)
+
       const awswer = await UserAxios.post("/api/user", payload)
-      console.log("asde ",awswer)
 
       dispatch({
         type: AUTHENTICATION_SUCCESS,
@@ -97,6 +99,13 @@ const AuthState = ({children}) => {
       })      
     }
   }
+
+  const logOut = () =>{
+    dispatch({
+      type: LOG_OUT
+    })
+  }
+  console.log("Id Base ", state.IdBase)
   return(
     <AuthContext.Provider
     value={{
@@ -105,7 +114,8 @@ const AuthState = ({children}) => {
       autentification: state.autentification,
       timer: state.timer,
       userRegister,
-      LogIn
+      LogIn,
+      logOut
     }}
     >
       {children}

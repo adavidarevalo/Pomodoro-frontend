@@ -4,7 +4,8 @@ import {
   GET_USER,
   LOGIN_ERROR,
   GET_TOKEN_START,
-  LOGIN_SUCCESSFUL
+  LOGIN_SUCCESSFUL,
+  LOG_OUT
 } from "../../type"
 
 // eslint-disable-next-line
@@ -46,6 +47,17 @@ export default (state, action) => {
       return{
         ...state,
         token: action.payload
+      }
+    case LOG_OUT:
+      console.log("Log Out ")
+      localStorage.removeItem("Token")
+      return{
+        ...state,
+        user: null,
+        token: null,
+        authenticated: null,
+        name: null,
+        timer: null,
       }
     default:
       return state;
