@@ -73,11 +73,10 @@ const AuthState = ({children}) => {
       })
       await AuthUser()
     } catch (error) {
-      console.log("Error", error)
-      /* dispatch({
+      dispatch({
         type: REGISTER_ERROR,
         payload: error.response.data.msg
-      }) */
+      })
     }
   }
 
@@ -105,7 +104,6 @@ const AuthState = ({children}) => {
       type: LOG_OUT
     })
   }
-  console.log("Id Base ", state.IdBase)
   return(
     <AuthContext.Provider
     value={{
@@ -115,7 +113,8 @@ const AuthState = ({children}) => {
       timer: state.timer,
       userRegister,
       LogIn,
-      logOut
+      logOut,
+      AuthUser
     }}
     >
       {children}

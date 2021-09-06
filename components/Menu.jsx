@@ -1,4 +1,4 @@
-import React,{useContext} from "react"
+import React,{useContext, useEffect} from "react"
 import { AiOutlineUser } from "react-icons/ai";
 import Link from "next/link"
 import {ContainerMenu} from "../styles/components/Menu"
@@ -8,8 +8,11 @@ import AuthContext from "../context/auth/authContext"
 
 const Menu = () => {
   const {changeAccount} = useContext(AccountContext)
-  const {name, logOut} = useContext(AuthContext)
+  const {name, logOut, AuthUser} = useContext(AuthContext)
 
+  useEffect(() => {
+    AuthUser()
+  }, [])
   const handleLogin = () => {
     changeAccount(false)
   }
